@@ -1,0 +1,51 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #23272f;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #90caf9 0%, #23272f 70%);
+  opacity: 0.15;
+  transform: translate(-50%, -50%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.title {
+  z-index: 1;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 32px #90caf9aa;
+}
+
+.gradientText {
+  background: linear-gradient(90deg, #90caf9 0%, #5c7fa3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  z-index: 1;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  color: #b0b8c1;
+  font-weight: 400;
+  text-align: center;
+}
+
+.getStarted {
+  z-index: 1;
+  margin-top: 24px;
+} 
