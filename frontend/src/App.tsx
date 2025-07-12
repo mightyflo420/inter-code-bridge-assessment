@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import LandingPage from './components/landing';
+import TaskList from './components/TaskList';
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#121212',
+      default: '#23272f',
       paper: '#1e1e1e',
     },
     primary: {
@@ -19,10 +22,18 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  const [showTasks, setShowTasks] = useState(false);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <LandingPage />
+      <Box sx={{ minHeight: '100vh', bgcolor: '#23272f' }}>
+        {showTasks ? (
+          <TaskList />
+        ) : (
+          <LandingPage onGetStarted={() => setShowTasks(true)} />
+        )}
+      </Box>
     </ThemeProvider>
   );
 }

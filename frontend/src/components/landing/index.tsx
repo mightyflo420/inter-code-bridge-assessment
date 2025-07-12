@@ -4,7 +4,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import styles from './index.module.css';
 
-const LandingPage: React.FC = () => {
+interface LandingPageProps {
+  onGetStarted?: () => void;
+}
+
+const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   return (
     <Box className={styles.root}>
       <Box className={styles.glow}></Box>
@@ -20,6 +24,7 @@ const LandingPage: React.FC = () => {
         size="large"
         className={styles.getStarted}
         sx={{ mt: 4, px: 6, py: 1.5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 3, boxShadow: 3 }}
+        onClick={onGetStarted}
       >
         Get Started
       </Button>
