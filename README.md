@@ -50,6 +50,18 @@ For more backend details, see [backend/README.md](backend/README.md).
    ```sh
    cd frontend
    npm install
+   ```
+2. **Set up environment variables:**
+   - Copy the example file to create your own `.env`:
+     ```sh
+     cp .env.example .env
+     ```
+   - Edit `.env` and set the backend URL:
+     ```env
+     REACT_APP_BACKEND_URL=http://localhost:8000
+     ```
+3. Start the frontend development server:
+   ```sh
    npm start
    ```
    - The app will be available at [http://localhost:3000](http://localhost:3000).
