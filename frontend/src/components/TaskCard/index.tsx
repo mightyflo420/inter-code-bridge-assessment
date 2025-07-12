@@ -6,14 +6,16 @@ import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Task } from '../../helpers/fetchTasks';
 
 interface TaskCardProps {
   task: Task;
   onDelete?: (id: number) => void;
+  onComplete?: (id: number) => void;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete, onComplete }) => {
   return (
     <Card variant="outlined" sx={{ bgcolor: '#23272f', borderColor: '#333a45' }}>
       <CardContent>
@@ -27,6 +29,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
               color={task.status === 'completed' ? 'success' : 'info'}
               size="small"
             />
+            {onComplete && task.status !== 'completed' && (
+              <IconButton aria-label="mark as completed" size="small" onClick={() => onComplete(task.id)}>
+                <CheckCircleIcon fontSize="small" color="success" />
+              </IconButton>
+            )}
             {onDelete && (
               <IconButton aria-label="delete" size="small" onClick={() => onDelete(task.id)}>
                 <DeleteIcon fontSize="small" />
