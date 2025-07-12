@@ -16,6 +16,7 @@ import TaskCard from '../TaskCard';
 import AddTaskForm from '../AddTaskForm';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { deleteTask } from '../../helpers/deleteTask';
 
 const ROWS_OPTIONS = [5, 10, 20, 50];
 
@@ -59,6 +60,16 @@ const TaskList: React.FC = () => {
         }
     };
 
+    const handleDeleteTask = async (id: number) => {
+        try {
+            await deleteTask(id);
+            setTasks(prev => prev.filter(task => task.id !== id));
+            toast.success('Task deleted successfully');
+        } catch (err: any) {
+            toast.error(err?.message || 'Failed to delete task');
+        }
+    };
+
     const pageCount = Math.max(1, Math.ceil(tasks.length / rowsPerPage));
     const paginatedTasks = tasks.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
@@ -76,7 +87,7 @@ const TaskList: React.FC = () => {
                 <Paper elevation={3} sx={{ bgcolor: 'transparent', boxShadow: 'none' }}>
                     <Stack spacing={2} sx={{ p: 2 }}>
                         {paginatedTasks.map((task) => (
-                            <TaskCard key={task.id} task={task} />
+                            <TaskCard key={task.id} task={task} onDelete={handleDeleteTask} />
                         ))}
                         {paginatedTasks.length === 0 && (
                             <Typography variant="body1" color="textSecondary" align="center">
