@@ -60,5 +60,3 @@ For more frontend details, see [frontend/README.md](frontend/README.md).
 ---
 
 **Tip:** Make sure Docker is running before starting the containers. The frontend must be started separately and will connect to the backend automatically if both are running on the default ports. 
-
-Add a line to force a merge conflict
