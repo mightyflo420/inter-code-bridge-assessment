@@ -20,6 +20,9 @@ async def create_task(db: AsyncSession, task_in: TaskCreate):
 
 async def delete_task(db: AsyncSession, task_id: int):
     result = await db.execute(select(Task).where(Task.id == task_id))
-    task = result.scalar_one()
+    task = result.scalar_one_or_none()
+    if not task:
+        return None
     await db.delete(task)
-    await db.commit() 
+    await db.commit()
+    return task 
