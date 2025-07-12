@@ -14,6 +14,8 @@ import { fetchTasks, Task } from '../../helpers/fetchTasks';
 import { createTask, NewTask } from '../../helpers/createTask';
 import TaskCard from '../TaskCard';
 import AddTaskForm from '../AddTaskForm';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ROWS_OPTIONS = [5, 10, 20, 50];
 
@@ -30,8 +32,9 @@ const TaskList: React.FC = () => {
             try {
                 const data = await fetchTasks();
                 setTasks(data);
-            } catch (err) {
+            } catch (err: any) {
                 setTasks([]);
+                toast.error(err?.message || 'Failed to fetch tasks');
             } finally {
                 setLoading(false);
             }
@@ -49,8 +52,8 @@ const TaskList: React.FC = () => {
             const newTask = await createTask(task);
             setTasks(prev => [newTask, ...prev]);
             setPage(1);
-        } catch (err) {
-            // Optionally show error
+        } catch (err: any) {
+            toast.error(err?.message || 'Failed to add task');
         } finally {
             setAdding(false);
         }
@@ -111,6 +114,7 @@ const TaskList: React.FC = () => {
                     </Stack>
                 </Paper>
             )}
+            <ToastContainer position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         </Box>
     );
 };

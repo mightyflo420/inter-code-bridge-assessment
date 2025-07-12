@@ -12,6 +12,7 @@ export async function createTask(task: NewTask): Promise<Task> {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task),
     });
-    if (!res.ok) throw new Error('Failed to create task');
+    if (!res.ok)
+        throw new Error('Failed to create task');
     return res.json();
 } 
