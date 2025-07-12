@@ -17,6 +17,7 @@ import AddTaskForm from '../AddTaskForm';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { deleteTask } from '../../helpers/deleteTask';
+import { updateTaskStatus } from '../../helpers/updateTaskStatus';
 
 const ROWS_OPTIONS = [5, 10, 20, 50];
 
@@ -70,6 +71,16 @@ const TaskList: React.FC = () => {
         }
     };
 
+    const handleCompleteTask = async (id: number) => {
+        try {
+            await updateTaskStatus(id, 'completed');
+            setTasks(prev => prev.map(task => task.id === id ? { ...task, status: 'completed' } : task));
+            toast.success('Task marked as completed');
+        } catch (err: any) {
+            toast.error(err?.message || 'Failed to update task status');
+        }
+    };
+
     const pageCount = Math.max(1, Math.ceil(tasks.length / rowsPerPage));
     const paginatedTasks = tasks.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
@@ -87,7 +98,7 @@ const TaskList: React.FC = () => {
                 <Paper elevation={3} sx={{ bgcolor: 'transparent', boxShadow: 'none' }}>
                     <Stack spacing={2} sx={{ p: 2 }}>
                         {paginatedTasks.map((task) => (
-                            <TaskCard key={task.id} task={task} onDelete={handleDeleteTask} />
+                            <TaskCard key={task.id} task={task} onDelete={handleDeleteTask} onComplete={handleCompleteTask} />
                         ))}
                         {paginatedTasks.length === 0 && (
                             <Typography variant="body1" color="textSecondary" align="center">
