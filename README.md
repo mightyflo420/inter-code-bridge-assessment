@@ -32,13 +32,22 @@ docker-compose.yml      # Orchestrates backend and database
    ```sh
    docker-compose up --build
    ```
+   - To run in detached (background) mode, add the `-d` flag:
+     ```sh
+     docker-compose up --build -d
+     ```
    - This will start:
      - `db`: PostgreSQL database (on port 5432)
      - `backend`: FastAPI app (on port 8000)
 
    > **Note:** The backend uses the `wait-for-it.sh` script to ensure it only starts after the database is ready. This script is included in the repo and referenced in the Dockerfile and docker-compose.yml.
 
-2. **Stop the containers:**
+2. **View logs from running containers:**
+   ```sh
+   docker-compose logs -f
+   ```
+
+3. **Stop the containers:**
    ```sh
    docker-compose down
    ```
@@ -71,4 +80,16 @@ For more frontend details, see [frontend/README.md](frontend/README.md).
 
 ---
 
-**Tip:** Make sure Docker is running before starting the containers. The frontend must be started separately and will connect to the backend automatically if both are running on the default ports. 
+**Tip:** Make sure Docker is running before starting the containers. The frontend must be started separately and will connect to the backend automatically if both are running on the default ports.
+
+---
+
+## Recommended Improvements for Production
+If this were a real production project (not just an assignment), consider the following enhancements:
+
+- **Add automated tests** (unit, integration, and end-to-end) for both frontend and backend.
+- **Set up a code analyzer/CI pipeline** (e.g., ESLint, flake8, black, mypy, etc.) to run on every Pull Request and ensure code quality.
+- **Require detailed descriptions for each Pull Request** to improve code review and documentation.
+- **Use a `dev` branch for QA/testing** before merging changes into `main` (production).
+
+These practices help maintain code quality, catch bugs early, and ensure a smooth deployment process in real-world projects. 
