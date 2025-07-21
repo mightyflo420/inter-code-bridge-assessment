@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+frontend_url = os.getenv("FRONTEND_URL", "https://protective-presence-production-8f49.up.railway.app/")
 
 app.add_middleware(
     CORSMiddleware,
